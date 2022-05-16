@@ -16,6 +16,7 @@ root = "~/.etanol"
 
 [[bin]]
 name = "etanol"
+path = "./src/main.rs"
 
 [dependencies]
 ansi_term = "0.12.1"
