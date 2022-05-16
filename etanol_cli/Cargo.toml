@@ -22,7 +22,7 @@ uuid = { version = "1.0.0", features = ["v4"] }
 ring = "0.16.20"
 data-encoding = "2.3.2"
 
-etanol_compiler = { path="../etanol_compiler" }
-etanol_databases = { path="../etanol_databases" }
-etanol_utils = { path="../etanol_utils" }
+etanol_compiler = { version = "0.0.1", path="../etanol_compiler" }
+etanol_databases = { version = "0.0.1", path="../etanol_databases" }
+etanol_utils = { version = "0.0.1", path="../etanol_utils" }
 
