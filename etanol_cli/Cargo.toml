@@ -14,6 +14,9 @@ exclude = [ "etanol"]
 [install]
 root = "~/.etanol"
 
+[[bin]]
+name = "etanol"
+
 [dependencies]
 ansi_term = "0.12.1"
 chrono = "0.4.19"
