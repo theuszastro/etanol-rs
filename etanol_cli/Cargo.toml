@@ -1,0 +1,28 @@
+[package]
+name = "etanol"
+version = "0.0.1"
+edition = "2021"
+authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
+license = "MIT"
+description = "A command line interface for etanol-rs"
+homepage = "https://github.com/theuszastro/etanol-rs"
+repository = "https://github.com/theuszastro/etanol-rs"
+keywords = ["cli", "orm"]
+categories = ["command-line-utilities"]
+exclude = [ "etanol"]
+
+[install]
+root = "~/.etanol"
+
+[dependencies]
+ansi_term = "0.12.1"
+chrono = "0.4.19"
+dotenv = "0.15.0"
+uuid = { version = "1.0.0", features = ["v4"] }
+ring = "0.16.20"
+data-encoding = "2.3.2"
+
+etanol_compiler = { path="../etanol_compiler" }
+etanol_databases = { path="../etanol_databases" }
+etanol_utils = { path="../etanol_utils" }
+

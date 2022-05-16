@@ -1,0 +1,6 @@
+table User {
+    id String @id
+    name String
+    age Integer?
+    isAdmin Boolean @default(false)
+};
