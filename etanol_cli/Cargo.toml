@@ -1,6 +1,6 @@
 [package]
 name = "etanol_cli"
-version = "0.0.2"
+version = "0.0.3"
 edition = "2021"
 authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
 license = "MIT"
@@ -21,12 +21,8 @@ path = "./src/main.rs"
 [dependencies]
 ansi_term = "0.12.1"
 chrono = "0.4.19"
-dotenv = "0.15.0"
 uuid = { version = "1.0.0", features = ["v4"] }
-ring = "0.16.20"
-data-encoding = "2.3.2"
+rust-format = "0.3.4"
 
-etanol_compiler = { version = "0.0.1", path="../etanol_compiler" }
 etanol_databases = { version = "0.0.1", path="../etanol_databases" }
 etanol_utils = { version = "0.0.1", path="../etanol_utils" }
-

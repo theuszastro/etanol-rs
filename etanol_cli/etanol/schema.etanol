@@ -6,6 +6,11 @@ config {
 table User {
     id String @id
     name String
-    age Integer?
+    age Integer? @default(20)
     isAdmin Boolean @default(false)
+}
+
+table Post {
+    id String @id
+    description String
 }
