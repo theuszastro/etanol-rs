@@ -1,7 +1,10 @@
+use std::fs::File;
+use std::path::PathBuf;
+use std::sync::{Arc, Mutex};
+
 use etanol_utils::EtanolError;
 
-use rusqlite::{Connection, Error};
-use std::sync::{Arc, Mutex};
+use rusqlite::{params_from_iter, Connection, Error};
 
 use crate::{Column, Database};
 
@@ -14,6 +17,15 @@ lazy_static::lazy_static! {
 
 impl Database for Sqlite {
     fn createConnection(url: String) -> Result<(), Error> {
+        if !url.ends_with(".sqlite") {
+            EtanolError::new(
+                format!("Config database_url '{}' not supported", url),
+                "DatabaseNotSupported".to_string(),
+            );
+        }
+
+        createDatabase(url.clone());
+
         if DATABASE_CONNECTION.lock().unwrap().is_none() {
             let connection = Connection::open(url)?;
 
@@ -54,9 +66,9 @@ impl Database for Sqlite {
                 sql.push_str(" PRIMARY KEY");
             }
 
-            if let Some(value) = column.default {
-                sql.push_str(&format!(" DEFAULT \"{}\"", value));
-            }
+            // if let Some(value) = column.default {
+            //     sql.push_str(&format!(" DEFAULT \"{}\"", value));
+            // }
 
             sql.push_str(",\n");
         }
@@ -88,5 +100,34 @@ impl Database for Sqlite {
             .collect::<Vec<&str>>()
             .join("")
             .to_string()
+    }
+
+    fn execute(sql: String, params: &[String]) -> Result<(), Error> {
+        let connection = Sqlite::getConnection();
+        let connection = connection.lock().unwrap();
+
+        if let Some(conn) = &*connection {
+            conn.execute(&sql, params_from_iter(params.iter())).unwrap();
+        }
+
+        Ok(())
+    }
+}
+
+fn createDatabase(path: String) {
+    println!("Creating database: {}", path);
+
+    let path = PathBuf::from(path);
+
+    if !path.exists() {
+        match File::create(path) {
+            Ok(_) => {}
+            Err(e) => {
+                EtanolError::new(
+                    format!("Could not create database file: {}", e),
+                    "FileSystemError".to_string(),
+                );
+            }
+        }
     }
 }

@@ -11,4 +11,5 @@ pub trait Database {
 
     fn createConnection(url: String) -> Result<(), Error>;
     fn getConnection() -> Arc<Mutex<Option<Connection>>>;
+    fn execute(sql: String, params: &[String]) -> Result<(), Error>;
 }

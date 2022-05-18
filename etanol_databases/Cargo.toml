@@ -1,6 +1,6 @@
 [package]
 name = "etanol_databases"
-version = "0.0.1"
+version = "0.0.2"
 edition = "2021"
 authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
 license = "MIT"
@@ -21,4 +21,4 @@ rusqlite = { version = "0.27.0", features = ["bundled"] }
 regex = "1.5.5"
 lazy_static = "1.4.0"
 
-etanol_utils = { version = "0.0.1", path="../etanol_utils" }
+etanol_utils = { version = "0.0.2", path="../etanol_utils" }

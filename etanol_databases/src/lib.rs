@@ -1,5 +1,7 @@
 #![allow(non_snake_case)]
 
+extern crate etanol_utils;
+
 mod engines;
 mod traits;
 
@@ -73,6 +75,7 @@ impl Migration {
             name,
             columns: vec![],
         });
+
         &mut self.tables[index]
     }
 
