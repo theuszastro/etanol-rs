@@ -1,10 +1,8 @@
 use std::fs::{create_dir, read_dir, write};
 use std::path::PathBuf;
 
-use etanol_databases::Migration;
-use etanol_utils::{EtanolError, TableColumn};
-
 use chrono::Local;
+use etanol_utils::EtanolError;
 
 pub fn createMigration(name: String, content: String) -> String {
     let timestamp = Local::now().timestamp_millis();
@@ -19,27 +17,25 @@ pub fn createMigration(name: String, content: String) -> String {
     name
 }
 
-pub fn createTableMigration(migration: &mut Migration, name: String, columns: Vec<TableColumn>) {
-    let table = migration.createTable(name.clone());
-
-    for column in columns {
-        table
-            .addColumn(column.name, column.columnType)
-            .primaryKey(column.isPrimary)
-            .nullable(column.isOptional)
-            .default(column.default);
-    }
-}
-
 pub fn createMigrationFolder(name: String) {
     let migrations = "etanol/migrations";
     let migrationsPath = PathBuf::from(migrations);
 
     if migrationsPath.exists() {
         for file in read_dir(migrationsPath).unwrap() {
-            let fileName = file.unwrap();
+            let filename = file.unwrap().file_name();
+            let filename = filename.to_str().unwrap();
 
-            if fileName.file_name().to_str().unwrap().contains(&name) {
+            let mut splited = filename
+                .split("_")
+                .map(|x| x.to_string())
+                .collect::<Vec<String>>();
+
+            splited.remove(0);
+
+            let filename = splited.join("_");
+
+            if filename.trim() == name.trim() {
                 EtanolError::new(
                     format!("Migration '{}' already exists", name),
                     "MigrationNameCollision".to_string(),

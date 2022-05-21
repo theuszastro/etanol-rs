@@ -22,7 +22,7 @@ path = "./src/main.rs"
 ansi_term = "0.12.1"
 chrono = "0.4.19"
 uuid = { version = "1.0.0", features = ["v4"] }
-rust-format = "0.3.4"
+lazy_static = "1.4.0"
 
 etanol_databases = { version = "0.0.2", path="../etanol_databases" }
 etanol_utils = { version = "0.0.2", path="../etanol_utils" }

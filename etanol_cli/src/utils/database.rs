@@ -1,27 +1,27 @@
-use etanol_databases::{Database, Migration, Sqlite};
-use etanol_utils::{readConfig, EtanolError};
+use etanol_databases::{Database, Migration};
+use etanol_utils::readConfig;
 
-mod sqlite;
-use sqlite::*;
+use uuid::Uuid;
+
+use etanol_utils::hash;
 
 pub fn executeInDatabase(name: String, content: String) {
-    let configs = readConfig();
+    let url = readConfig().take("database_url".to_string()).unwrap();
 
-    let database = configs.take("database".to_string()).unwrap();
-    let url = configs.take("database_url".to_string()).unwrap();
+    Database::createConnection(url.value()).unwrap();
 
-    match database.as_str() {
-        "sqlite" => sqlite(url.clone(), name, content),
-        _ => {
-            EtanolError::new(
-                format!("Config database '{}' not supported", database),
-                "DatabaseNotSupported".to_string(),
-            );
-        }
-    }
+    let id = Uuid::new_v4().to_string();
+    let checksum = hash(content.clone());
+
+    Database::execute(migrationTable(), &vec![]).unwrap();
+    Database::execute(Database::formatQuery(content), &vec![]).unwrap();
+
+    let sql = "INSERT INTO _etanol_migrations (id, migration_name, checksum) VALUES(?1, ?2, ?3);";
+
+    Database::execute(sql.to_string(), &vec![id, name, checksum]).unwrap();
 }
 
-pub fn migrationTable<T: Database>() -> String {
+pub fn migrationTable() -> String {
     let mut migration = Migration::new();
 
     let columns = vec![
@@ -52,5 +52,5 @@ pub fn migrationTable<T: Database>() -> String {
             .default(default);
     }
 
-    migration.make::<Sqlite>().join("")
+    migration.make().join("")
 }

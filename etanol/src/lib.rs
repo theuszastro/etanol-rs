@@ -1,74 +1,34 @@
-struct Query {
-    skip: Option<i64>,
-    take: Option<i64>,
+#![allow(non_snake_case)]
+
+mod methods;
+
+// https://stackoverflow.com/questions/60396593/how-do-i-use-rusqlites-rowget-method-for-a-type-which-i-dont-know-at-compile
+
+pub use etanol_databases::{Database, FindWhere};
+pub use etanol_utils::Env;
+
+pub use methods::*;
+
+pub enum Operator<V: Value> {
+    Equal(V),
+    NotEqual(V),
+    GreaterThan(V),
+    GreaterThanOrEqual(V),
+    LessThan(V),
+    LessThanOrEqual(V),
+    Contains(V),
 }
 
-pub struct User {
-    pub id: String,
-    pub name: String,
-
-    query: Query,
-}
-
-impl User {
-    pub fn new(id: String, name: String) -> Self {
-        Self {
-            id,
-            name,
-            query: Query {
-                skip: None,
-                take: None,
-            },
+impl<V: Value> Operator<V> {
+    fn value(&self) -> String {
+        match self {
+            Operator::Equal(value)
+            | Operator::NotEqual(value)
+            | Operator::Contains(value)
+            | Operator::GreaterThan(value)
+            | Operator::GreaterThanOrEqual(value)
+            | Operator::LessThan(value)
+            | Operator::LessThanOrEqual(value) => value.toValue(None),
         }
-    }
-}
-
-pub trait Model {
-    fn toInsertSql(&mut self) -> String;
-    fn skip(&mut self, amount: i64) -> &mut Self;
-    fn take(&mut self, amount: i64) -> &mut Self;
-    fn execute(&mut self);
-}
-
-impl Model for User {
-    fn toInsertSql(&mut self) -> String {
-        format!(
-            "INSERT INTO users (id, name) VALUES ('{}', '{}')",
-            self.id, self.name
-        )
-    }
-
-    fn skip(&mut self, amount: i64) -> &mut Self {
-        self.query = Query {
-            skip: Some(amount),
-            take: self.query.take,
-        };
-
-        self
-    }
-
-    fn take(&mut self, amount: i64) -> &mut Self {
-        self.query = Query {
-            skip: self.query.skip,
-            take: Some(amount),
-        };
-
-        self
-    }
-
-    fn execute(&mut self) {
-        let mut sql = self.toInsertSql();
-
-        let Query { skip, take } = self.query;
-
-        if let Some(skip) = skip {
-            sql += &format!(" OFFSET {}", skip);
-        }
-
-        if let Some(take) = take {
-            sql += &format!(" LIMIT {}", take);
-        }
-
-        println!("{}", sql);
     }
 }

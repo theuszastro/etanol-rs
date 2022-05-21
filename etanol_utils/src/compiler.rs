@@ -1,15 +1,12 @@
 use std::path::PathBuf;
 use std::sync::{Arc, Mutex};
 
-use dotenv::dotenv;
+use crate::Env;
 
 pub use etanol_compiler::TableColumn;
 use etanol_compiler::{Compiler, DatabaseConfig, ParsedToken};
 
-use crate::{Configs, EtanolError};
-
-mod methods;
-use methods::findEnv;
+use crate::{Config, Configs, EtanolError};
 
 lazy_static::lazy_static! {
     static ref TOKENS: Arc<Mutex<Option<Vec<ParsedToken>>>> = Arc::new(Mutex::new(None));
@@ -42,8 +39,6 @@ pub fn readConfig() -> Configs {
         return configs.clone();
     }
 
-    // let tokens = TOKENS.lock().unwrap().clone().unwrap();
-
     let tokens = readTokens();
 
     let mut configs = Configs::new();
@@ -51,22 +46,25 @@ pub fn readConfig() -> Configs {
     for token in tokens {
         match token {
             ParsedToken::DatabaseConfigs(conf) => {
-                dotenv().ok();
-
                 for config in conf {
                     match config {
-                        DatabaseConfig::Value(name, value) => configs.0.push((name, value)),
+                        DatabaseConfig::Value(name, value) => {
+                            configs.0.push(Config {
+                                key: name,
+                                value: value,
+                                envValue: None,
+                                isEnv: false,
+                            });
+                        }
                         DatabaseConfig::Env(name, value) => {
-                            if let Some(envValue) = findEnv(value.clone()) {
-                                configs.0.push((name, envValue));
+                            let envValue = Env::take(value.clone());
 
-                                continue;
-                            }
-
-                            EtanolError::new(
-                                format!("Cannot find '{}' in env", value),
-                                "NotHaveInEnv".to_string(),
-                            );
+                            configs.0.push(Config {
+                                key: name,
+                                value: value,
+                                envValue: Some(envValue),
+                                isEnv: true,
+                            });
                         }
                     }
                 }

@@ -4,10 +4,11 @@ extern crate etanol_databases;
 extern crate etanol_utils;
 
 mod commands;
-mod engines;
+
 mod generation;
 mod migrations;
 mod utils;
+use utils::*;
 
 use commands::migrate;
 

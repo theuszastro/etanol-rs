@@ -94,7 +94,7 @@ dependencies = [
  "chrono",
  "etanol_databases",
  "etanol_utils",
- "rust-format",
+ "lazy_static",
  "uuid",
 ]
 
@@ -113,10 +113,19 @@ dependencies = [
 name = "etanol_databases"
 version = "0.0.2"
 dependencies = [
+ "etanol_macros",
  "etanol_utils",
  "lazy_static",
  "regex",
  "rusqlite",
+]
+
+[[package]]
+name = "etanol_macros"
+version = "0.0.1"
+dependencies = [
+ "etanol_utils",
+ "lazy_static",
 ]
 
 [[package]]
@@ -286,12 +295,6 @@ dependencies = [
  "memchr",
  "smallvec",
 ]
-
-[[package]]
-name = "rust-format"
-version = "0.3.4"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60e7c00b6c3bf5e38a880eec01d7e829d12ca682079f8238a464def3c4b31627"
 
 [[package]]
 name = "ryu"

@@ -1,7 +1,35 @@
-use etanol::{Model, User};
+#![allow(non_snake_case)]
+
+use etanol::FindWhere;
+
+mod database;
+
+use database::{create_connection, user::User};
 
 fn main() {
-    let mut user = User::new("1".to_string(), "John".to_string());
+    create_connection();
 
-    user.skip(10).take(10).execute();
+    let user = User {
+        id: "4".to_string(),
+        age: Some(3),
+        name: "Random".to_string(),
+        ..User::default()
+    };
+
+    user.insert().execute();
+
+    let _users = User::find()
+        .field(FindWhere::NotEqual("name", "Random"))
+        // .field(FindWhere::Equal("age", "20"))
+        .take(10)
+        .load();
+
+    match _users {
+        Ok(users) => {
+            for user in &users {
+                println!("{:?}", user);
+            }
+        }
+        Err(e) => eprintln!("{:?}", e),
+    }
 }
