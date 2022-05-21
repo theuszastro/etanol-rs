@@ -1,3 +1,4 @@
+use etanol_utils::readConfig;
 use etanol_utils::TableColumn;
 
 use std::fs::{create_dir_all, write};
@@ -7,6 +8,8 @@ mod methods;
 use methods::createFields;
 
 pub fn createModel(name: String, columns: Vec<TableColumn>) {
+    let config = readConfig();
+
     let mut fields = String::new();
     let mut defaultValues = String::new();
     let mut insertValues = String::new();
@@ -25,8 +28,13 @@ pub fn createModel(name: String, columns: Vec<TableColumn>) {
     insertValues.pop();
     insertValues.pop();
 
+    let engine = match config.take("database".to_string()).unwrap().as_str() {
+        "sqlite" => "Sqlite",
+        _ => "",
+    };
+
     let model = format!(
-        r"use etanol::Insert;
+        r"use etanol::{{Insert, {}}};
 use std::default::Default;
 
 pub struct {} {{
@@ -43,15 +51,27 @@ impl Default for {} {{
         
 impl {} {{
     pub fn insert(&self) -> Insert {{
-        Insert::new(
+        Insert::new::<{}>(
             String::from({}{}{}),
             vec![
                 {}
             ],
+            {} {{}}
         )
     }}
 }}",
-        name, fields, name, defaultValues, name, "\"", name, "\"", insertValues
+        engine,
+        name,
+        fields,
+        name,
+        defaultValues,
+        name,
+        engine,
+        "\"",
+        name,
+        "\"",
+        insertValues,
+        engine
     );
 
     create_dir_all("src/database/models").unwrap();
