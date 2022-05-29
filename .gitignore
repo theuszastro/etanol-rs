@@ -1,5 +1,7 @@
 **/target
 
-etanol/main.rs
+.env
+
+etanol/src/main.rs
 etanol/etanol
 etanol_*/etanol
