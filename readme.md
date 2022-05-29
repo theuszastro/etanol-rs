@@ -35,21 +35,9 @@
     // for install etanol command line interface
     $ cargo install etanol
 
-    // for generate migration in etanol/migrations
+    // for generate migration and models
     $ etanol migrate dev --name [name of migration]
 ```
-
-
-#### in Cargo.tomel
-```
-    ...
-
-    [dependencies]
-    etanol = "*"
-    
-    ...
-```
-
 
 #### in src/main.rs
 

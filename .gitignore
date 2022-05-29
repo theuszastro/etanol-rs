@@ -7,3 +7,4 @@ etanol/etanol
 etanol_*/etanol
 
 */src/database
+!etanol_databases/src/database

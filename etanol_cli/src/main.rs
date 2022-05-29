@@ -10,8 +10,6 @@ mod migrations;
 mod utils;
 use utils::*;
 
-mod database;
-
 use commands::migrate;
 
 use ansi_term::Colour;
