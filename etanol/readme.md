@@ -2,8 +2,6 @@
 
 ### this crate is still under development!
 
-
-
 ### Usage:
 
 #### in etanol/schema.etanol
