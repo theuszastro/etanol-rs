@@ -1,6 +1,6 @@
 [package]
 name = "etanol_macros"
-version = "0.0.1"
+version = "0.1.0"
 edition = "2021"
 authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
 license = "MIT"
@@ -18,5 +18,5 @@ path = "src/lib.rs"
 proc-macro = true
 
 [dependencies]
-etanol_utils = { path = "../etanol_utils" }
+etanol_utils = { path = "../etanol_utils", version = "0.1.0" }
 lazy_static = "1.4.0"

@@ -1,6 +1,6 @@
 [package]
 name = "etanol_cli"
-version = "0.0.3"
+version = "0.1.0"
 edition = "2021"
 authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
 license = "MIT"
@@ -24,5 +24,5 @@ chrono = "0.4.19"
 uuid = { version = "1.0.0", features = ["v4"] }
 lazy_static = "1.4.0"
 
-etanol_databases = { version = "0.0.2", path="../etanol_databases" }
-etanol_utils = { version = "0.0.2", path="../etanol_utils" }
+etanol_databases = { version = "0.1.0", path="../etanol_databases" }
+etanol_utils = { version = "0.1.0", path="../etanol_utils" }
