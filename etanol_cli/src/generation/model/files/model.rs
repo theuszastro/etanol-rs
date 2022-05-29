@@ -47,7 +47,7 @@ pub fn createModel(migration: &mut Migration, name: String, columns: Vec<TableCo
 
 fn createImports() -> String {
     r"
-        use etanol::{{Find, FindTrait, Insert}};
+        use etanol::{{Find, FindTrait, Insert, Delete, Update}};
         use std::default::Default;
     "
     .to_string()
@@ -80,6 +80,14 @@ fn createImpl(name: String, keys: Vec<String>) -> String {
                 vec![{}]
             )
         }}
+
+        pub fn update() -> Update<Self> {{
+            Update::new({}{}{}.to_string(), Self::default())
+        }}
+        
+        pub fn delete() -> Delete {{
+            Delete::new({}{}{}.to_string())
+        }}
     }}
     ",
         name,
@@ -87,7 +95,13 @@ fn createImpl(name: String, keys: Vec<String>) -> String {
         "\"",
         name,
         "\"",
-        keys.join(", ")
+        keys.join(", "),
+        "\"",
+        name,
+        "\"",
+        "\"",
+        name,
+        "\"",
     )
 }
 
