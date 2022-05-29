@@ -79,7 +79,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_compiler"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "diacritics",
  "regex",
@@ -90,7 +90,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_databases"
-version = "0.0.2"
+version = "0.1.0"
 dependencies = [
  "etanol_macros",
  "etanol_utils",
@@ -101,7 +101,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_macros"
-version = "0.0.1"
+version = "0.1.0"
 dependencies = [
  "etanol_utils",
  "lazy_static",
@@ -109,7 +109,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_utils"
-version = "0.0.2"
+version = "0.1.0"
 dependencies = [
  "ansi_term",
  "data-encoding",
