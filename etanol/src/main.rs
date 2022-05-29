@@ -9,30 +9,36 @@ use database::{create_connection, user::User};
 fn main() {
     create_connection();
 
-    // let user = User {
-    //     id: "5".to_string(),
-    //     age: Some(5),
-    //     name: "Teste".to_string(),
-    //     ..User::default()
-    // };
+    // Insert
+    let user = User {
+        id: "5".to_string(),
+        age: Some(5),
+        name: "Teste".to_string(),
+        ..User::default()
+    };
 
-    // user.insert().execute();
+    user.insert().execute();
 
-    // for user in &_users {
-    //     println!("{:?}", user);
-    // }
+    // FindOne
+    let _user = User::find()
+        .field(ModelWhere::Equal("name", "Random"))
+        .load()
+        .unwrap();
 
-    User::delete().field(ModelWhere::Equal("id", "1")).execute();
-
+    // FindMany
     let _users = User::find()
-        // .field(ModelWhere::GreaterThan("random", 3))
-        // .skip(1)
-        // .take(1)
+        .field(ModelWhere::Equal("name", "Random"))
         .many()
         .load()
         .unwrap();
 
-    for user in &_users {
-        println!("{:?}", user);
-    }
+    // Update
+    User::update()
+        .field(ModelWhere::Equal("id", "1"))
+        .value(QueryValue("name", "Matheus"))
+        .execute()
+        .unwrap();
+
+    // delete
+    User::delete().field(ModelWhere::Equal("id", "1")).execute();
 }

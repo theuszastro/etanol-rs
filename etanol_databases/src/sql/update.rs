@@ -3,7 +3,7 @@ use crate::Value;
 use crate::WhereQuery;
 
 #[derive(Debug)]
-pub struct QueryValue<T: Value>(pub String, pub T);
+pub struct QueryValue<T: Value>(pub &'static str, pub T);
 
 #[derive(Debug)]
 pub enum UpdateError {
@@ -36,7 +36,7 @@ impl UpdateQuery {
 
     pub fn value<T: Value>(&mut self, value: QueryValue<T>) -> &mut Self {
         self.values.push(value.1.toValue(None));
-        self.keys.push(value.0);
+        self.keys.push(value.0.to_string());
 
         self
     }
