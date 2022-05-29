@@ -1,8 +1,6 @@
-use etanol::{Find, FindTrait, Insert, Update};
+use etanol::{Delete, Find, FindTrait, Insert, Update};
 
 use std::default::Default;
-
-
 
 #[derive(Debug, Clone)]
 pub struct User {
@@ -19,6 +17,10 @@ impl User {
 
     pub fn update() -> Update<Self> {
         Update::new("User".to_string(), User::default())
+    }
+
+    pub fn delete() -> Delete {
+        Delete::new("User".to_string())
     }
 
     pub fn insert(&self) -> Insert {

@@ -56,7 +56,7 @@ impl<T: Value> ModelWhere<T> {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct WhereQuery {
     pub fields: Vec<String>,
     pub table: String,

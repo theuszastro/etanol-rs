@@ -33,6 +33,7 @@ impl UpdateQuery {
 
         self
     }
+
     pub fn value<T: Value>(&mut self, value: QueryValue<T>) -> &mut Self {
         self.values.push(value.1.toValue(None));
         self.keys.push(value.0);

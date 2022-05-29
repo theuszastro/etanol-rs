@@ -18,23 +18,21 @@ fn main() {
 
     // user.insert().execute();
 
+    // for user in &_users {
+    //     println!("{:?}", user);
+    // }
+
+    User::delete().field(ModelWhere::Equal("id", "1")).execute();
+
     let _users = User::find()
-        // .field(ModelWhere::GreaterThan("age", 3))
-        // .field(FindWhere::("age", "2"))
+        // .field(ModelWhere::GreaterThan("random", 3))
         // .skip(1)
-        .take(1)
-        // .many()
+        // .take(1)
+        .many()
         .load()
         .unwrap();
 
     for user in &_users {
         println!("{:?}", user);
     }
-
-    let result = User::update()
-        .field(ModelWhere::Equal("id", "1"))
-        .value(QueryValue("name".to_string(), "Jorge".to_string()))
-        .execute();
-
-    println!("{:?}", result);
 }

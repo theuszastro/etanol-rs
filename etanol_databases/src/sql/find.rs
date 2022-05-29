@@ -2,6 +2,7 @@ use crate::ModelWhere;
 use crate::Value;
 use crate::WhereQuery;
 
+#[derive(Clone)]
 pub struct FindQuery {
     skip: Option<i64>,
     take: Option<i64>,
