@@ -1,10 +1,11 @@
 [package]
 name = "etanol_cli"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
 license = "MIT"
 description = "A command line interface for etanol-rs"
+readme = "../crates.md"
 homepage = "https://github.com/theuszastro/etanol-rs"
 repository = "https://github.com/theuszastro/etanol-rs"
 keywords = ["cli", "orm"]

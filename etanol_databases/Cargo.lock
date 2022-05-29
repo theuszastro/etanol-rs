@@ -69,7 +69,7 @@ checksum = "77c90badedccf4105eca100756a0b1289e191f6fcbdadd3cee1d2f614f97da8f"
 
 [[package]]
 name = "etanol_compiler"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "diacritics",
  "regex",
@@ -80,7 +80,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_databases"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "etanol_macros",
  "etanol_utils",

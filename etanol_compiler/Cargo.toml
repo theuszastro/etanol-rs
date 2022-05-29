@@ -1,9 +1,10 @@
 [package]
 name = "etanol_compiler"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 authors = ["Matheus Castro <matheuszastrodev@hotmail.com>"]
 license = "MIT"
+readme = "../crates.md"
 description = "A compiler for etanol-rs"
 homepage = "https://github.com/theuszastro/etanol-rs"
 repository = "https://github.com/theuszastro/etanol-rs"
