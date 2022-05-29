@@ -1,7 +1,7 @@
 use etanol_databases::Database;
 use std::fmt::Debug;
 
-use etanol_databases::{FindQuery, FindWhere, Value};
+use etanol_databases::{FindQuery, ModelWhere, Value};
 
 pub trait FindTrait {
     fn from(_: Vec<(String, String)>) -> Self;
@@ -13,7 +13,7 @@ pub enum LoadError {
     FieldNotFound(String),
 }
 
-#[derive(Debug)]
+// #[derive(Debug)]
 pub struct Find<M: FindTrait + Debug> {
     _model: M,
     query: FindQuery,
@@ -27,7 +27,7 @@ impl<M: FindTrait + Debug> Find<M> {
         }
     }
 
-    pub fn field<V: Value>(&mut self, value: FindWhere<V>) -> &mut Self {
+    pub fn field<V: Value>(&mut self, value: ModelWhere<V>) -> &mut Self {
         self.query.field(value);
 
         self
@@ -48,7 +48,7 @@ impl<M: FindTrait + Debug> Find<M> {
     pub fn load(&mut self) -> Result<Vec<M>, LoadError> {
         let keys = M::keys();
 
-        for field in &self.query.fields {
+        for field in &self.query.fields() {
             let field = field.split(" ").collect::<Vec<_>>()[0].to_string();
 
             if !keys.contains(&field) {

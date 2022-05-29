@@ -1,7 +1,10 @@
-use etanol::{Find, FindTrait, Insert};
+use etanol::{Find, FindTrait, Insert, Update};
+
 use std::default::Default;
 
-#[derive(Debug)]
+
+
+#[derive(Debug, Clone)]
 pub struct User {
     pub id: String,
     pub name: String,
@@ -12,6 +15,10 @@ pub struct User {
 impl User {
     pub fn find() -> Find<Self> {
         Find::new("User".to_string(), Self::default())
+    }
+
+    pub fn update() -> Update<Self> {
+        Update::new("User".to_string(), User::default())
     }
 
     pub fn insert(&self) -> Insert {
