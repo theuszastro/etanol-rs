@@ -39,6 +39,18 @@
     $ etanol migrate dev --name [name of migration]
 ```
 
+
+#### in Cargo.tomel
+```
+    ...
+
+    [dependencies]
+    etanol = "*"
+    
+    ...
+```
+
+
 #### in src/main.rs
 
 ```
