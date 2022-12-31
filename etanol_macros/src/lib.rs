@@ -41,3 +41,4 @@ pub fn impl_value_trait_option(item: TokenStream) -> TokenStream {
 
     data.parse().unwrap()
 }
+

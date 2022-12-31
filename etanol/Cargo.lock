@@ -75,11 +75,12 @@ dependencies = [
  "etanol_databases",
  "etanol_macros",
  "etanol_utils",
+ "uuid",
 ]
 
 [[package]]
 name = "etanol_compiler"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "diacritics",
  "regex",
@@ -90,7 +91,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_databases"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "etanol_macros",
  "etanol_utils",
@@ -101,7 +102,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_macros"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "etanol_utils",
  "lazy_static",
@@ -109,7 +110,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_utils"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "ansi_term",
  "data-encoding",
@@ -312,6 +313,15 @@ name = "unicode-ident"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d22af068fba1eb5edcb4aea19d382b2a3deb4c8f9d475c589b6ada9e0fd493ee"
+
+[[package]]
+name = "uuid"
+version = "1.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c6d5d669b51467dcf7b2f1a796ce0f955f05f01cafda6c19d6e95f730df29238"
+dependencies = [
+ "getrandom",
+]
 
 [[package]]
 name = "vcpkg"

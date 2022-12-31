@@ -14,8 +14,10 @@ impl Table {
             name,
             columnType,
             isOptional: false,
-            default: None,
             isPrimary: false,
+            uuid: false,
+            autoincrement: false,
+            default: None,
         });
 
         &mut self.columns[index]

@@ -91,7 +91,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_macros"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "etanol_utils",
  "lazy_static",
@@ -99,7 +99,7 @@ dependencies = [
 
 [[package]]
 name = "etanol_utils"
-version = "0.1.1"
+version = "0.1.2"
 dependencies = [
  "ansi_term",
  "data-encoding",

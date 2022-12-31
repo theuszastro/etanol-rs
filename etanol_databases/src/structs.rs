@@ -51,6 +51,10 @@ impl Database {
                 sql.push_str(" PRIMARY KEY");
             }
 
+            if column.autoincrement {
+                sql.push_str(" AUTOINCREMENT");
+            }
+
             sql.push_str(",\n");
         }
 

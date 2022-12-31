@@ -37,6 +37,8 @@ pub fn createFrom(column: &TableColumn) -> String {
 pub fn createInsertValue(column: &TableColumn) -> String {
     let value = if let Some(value) = &column.default {
         format!("Some(\"{}\".to_string())", value)
+    } else if column.uuid {
+        "Some(etanol::uuid())".to_string()
     } else {
         "None".to_string()
     };
@@ -48,6 +50,10 @@ pub fn createInsertValue(column: &TableColumn) -> String {
 }
 
 pub fn createDefault(column: &TableColumn) -> String {
+    if column.uuid {
+        return format!("{}: Some(etanol::uuid()),", column.name);
+    }
+
     if let Some(value) = &column.default {
         return format!("{}: Some({})", column.name, value);
     }

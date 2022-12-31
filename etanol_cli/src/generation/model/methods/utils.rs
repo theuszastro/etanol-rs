@@ -3,7 +3,7 @@ use etanol_utils::TableColumn;
 pub fn formatType(column: &TableColumn) -> String {
     let type_ = parseType(column.columnType.clone());
 
-    if column.isOptional | column.default.is_some() {
+    if column.isOptional | column.uuid | column.autoincrement | column.default.is_some() {
         return format!("Option<{}>", type_);
     }
 

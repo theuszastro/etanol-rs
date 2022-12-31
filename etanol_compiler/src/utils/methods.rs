@@ -1,28 +1,17 @@
-use crate::utils::{Pointer, Token};
+use crate::{Pointer, Token};
 
-pub fn readString(pointer: &mut Pointer) -> String {
-    let startString = pointer.toEqual("Punctuation", "\"");
-    if !startString {
-        pointer.error("Expected '\"'");
-    }
-
+pub fn read_string(pointer: &mut Pointer) -> String {
     let mut value = String::new();
 
-    loop {
-        if pointer.toEqual("Punctuation", "\"") {
-            break;
-        }
+    pointer.equal_with_error("Punctuation", "\"", "Expected a '\"'");
 
+    while !pointer.equal("Punctuation", "\"") {
         match pointer.token.clone() {
-            None | Some(Token::EOF) => {
-                pointer.error("Expected a '\"'");
-            }
-            Some(data) => {
-                value.push_str(&data.tokenValue());
-
-                pointer.take(&data.tokenType());
-            }
+            None | Some(Token::EOF) => pointer.error("Expected a '\"'".to_string()),
+            Some(token) => value.push_str(&token.value()),
         }
+
+        pointer.next();
     }
 
     value

@@ -27,6 +27,8 @@ pub fn createModel(migration: &mut Migration, name: String, columns: Vec<TableCo
             .addColumn(column.name, column.columnType)
             .primaryKey(column.isPrimary)
             .nullable(column.isOptional)
+            .autoincrement(column.autoincrement)
+            .uuid(column.uuid)
             .default(column.default);
     }
 
